@@ -6,37 +6,27 @@
 
 #include "Iterator.h"
 
-template <typename T> struct LinkedListElement
+template <typename T>
+struct LinkedListElement
 {
     T content;
     LinkedListElement *nextElement = nulli;
     LinkedListElement *prevElement = nulli;
 };
 
-template <typename T> class LinkedList
+template <typename T>
+class LinkedList
 {
-  public:
+   public:
     using iterator = IIterator<LinkedListElement<T>>;
 
-    inline const T &front()
-    {
-        return this->frontElement->content;
-    }
+    inline const T &front() { return this->frontElement->content; }
 
-    inline const T &back()
-    {
-        return this->endElement->content;
-    }
+    inline const T &back() { return this->endElement->content; }
 
-    inline iterator begin()
-    {
-        return iterator(this->frontElement);
-    }
+    inline iterator begin() { return iterator(this->frontElement); }
 
-    inline iterator end()
-    {
-        return iterator(this->endElement);
-    }
+    inline iterator end() { return iterator(this->endElement); }
 
     inline void push_back(const T &content)
     {
@@ -86,17 +76,13 @@ template <typename T> class LinkedList
         return tmp;
     }
 
-    inline size_t size()
-    {
-        return this->length;
-    }
+    inline size_t size() { return this->length; }
 
     void remove(const T &content)
     {
         for (auto iter = this->begin(); iter != this->end(); iter++)
         {
-            if (iter.base().content == content)
-                this->erase(iter);
+            if (iter.base().content == content) this->erase(iter);
         }
     }
 
@@ -116,26 +102,27 @@ template <typename T> class LinkedList
 
     void sort(std::function<bool(T, T)> func)
     {
+        LinkedListElement<T> *L1;
+        LinkedListElement<T> *L1End;
+        LinkedListElement<T> *L2;
+        LinkedListElement<T> *
 
-        LinkedList<T> L1;
-        LinkedList<T> L2;
-
-        LinkedListElement<T> *center = this->frontElement;
+            LinkedListElement<T> *center = this->frontElement;
 
         for (auto iter = this->begin(); iter != this.end(); iter++)
         {
             if (!func(center->content, iter.base().content))
-                L1.push_back(iter.base());
+                L1.nextElementiter.base());
             else
                 L2.push_back(iter.base());
         }
     }
 
-  private:
-    LinkedList<T> sortReserve(LinkedList<T> &list, std::function<bool(int, int)> func)
+   private:
+    LinkedList<T> sortReserve(LinkedList<T> &list,
+                              std::function<bool(int, int)> func)
     {
-        if (list.size() < 2)
-            return list;
+        if (list.size() < 2) return list;
 
         LinkedList<T> L1;
         LinkedList<T> L2;
@@ -149,13 +136,9 @@ template <typename T> class LinkedList
             else
                 L2.push_back(iter.base());
         }
-
-        LinkedList<T> result = L1;
-        result.end().base() = center;
-        result.end() = 1;
     }
 
-  private:
+   private:
     LinkedListElement<T> *frontElement;
     LinkedListElement<T> *endElement;
     size_t length = 0;
